@@ -20,7 +20,7 @@
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
-            --bg:  #ebe8f0;
+            --bg:  #fdfffe;
             --text-dark: #1e293b;
             --text-light: #64748b;
         }
@@ -160,7 +160,6 @@
 
     <div class="table-card">
         <table>
-            <thead>
                 <thead>
     <tr>
         <th>#</th> <th>Ism</th>
@@ -171,7 +170,6 @@
         <th>Manzil</th>
         <th>Amallar</th>
     </tr>
-</thead>
             </thead>
             <tbody>
                 <?php foreach($students as $student): ?>
@@ -183,10 +181,9 @@
                     <td><?=$student['class_name'] ?></td>
                     <td><?=$student['phone'] ?></td>
                     <td><?=$student['address'] ?></td>
-                    <td>
                     <td class="actions">
-                        <a href="#" class="btn-view">Ko'rish</a>
-                        <a href="#" class="btn-edit">Tahrirlash</a>
+                        <a href="show.php?id=<?= $student['id'] ?>" class="btn-view">Ko'rish</a>
+                        <a href="edit.php?id=<?= $student['id'] ?>" class="btn-edit">Tahrirlash</a>
                         <a href="delete.php?id=<?= $student['id'] ?>" class="btn-delete"  onclick="return confirm('O\'chirasizmi?')">O'chirish</a>
                     </td>
                 </tr>
