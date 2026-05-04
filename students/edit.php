@@ -143,7 +143,7 @@ $student = $data->fetch();
         </div>
 
         <div class="input-group">
-            <input type="text" name="class_name" value="<?= $student ['class_name'] ?>"required>
+            <input type="text" name="class_id" value="<?= $student ['class_id'] ?>"required>
             <label>Class Name</label>
         </div>
 

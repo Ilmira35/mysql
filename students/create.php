@@ -1,3 +1,12 @@
+<?php
+include "../config/db.php";
+
+$query_classes = "SELECT  class_name FROM classes";
+$data_classes = $conn->prepare($query_classes);
+$data_classes->execute();
+$classes = $data_classes->fetchAll();
+?>
+
 <!DOCTYPE html>
 <html lang="uz">
 <head>
@@ -130,10 +139,19 @@
             <label>Age</label>
         </div>
 
-        <div class="input-group">
-            <input type="text" name="class_name" required>
-            <label>Class Name</label>
-        </div>
+           <div class="form-group">
+    <label>Sinfni tanlang</label>
+    <select name="class_id" required>
+        <option value="">-- Sinfni tanlang --</option>
+        
+        <?php foreach($classes as $class): ?>
+            <option value="<?= $class['class_name'] ?>">
+                <?= htmlspecialchars($class['class_name']) ?>
+            </option>
+        <?php endforeach; ?>
+        
+    </select>
+</div>
 
         <div class="input-group">
             <input type="text" name="phone" required>

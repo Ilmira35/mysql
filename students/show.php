@@ -33,7 +33,7 @@ $student = $data->fetch ();
                 <?php echo $student['first_name'] . ' ' . $student['last_name']; ?>
             </h1>
             <p class="text-indigo-500 font-medium bg-indigo-50 inline-block px-4 py-1 rounded-full mt-2">
-                <?php echo $student['class_name']; ?> o'quvchisi
+                <?php echo $student['class_id']; ?> o'quvchisi
             </p>
 
             <div class="mt-8 space-y-4 text-left">

@@ -1,10 +1,13 @@
 <?php
   include "../config/db.php";
-  $sql = "SELECT * FROM students";
-  $data = $conn->prepare($sql);
-  $data->execute();
-  $students = $data->fetchAll();
-  $cnt = 1;
+
+$sql = "SELECT students.*, classes.class_name 
+        FROM students 
+        LEFT JOIN classes ON students.class_id = classes.id";
+
+$data = $conn->prepare($sql);
+$data->execute();
+$students = $data->fetchAll();
  ?>
 
 <!DOCTYPE html>
@@ -13,7 +16,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Studentlar</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #4f46e5;
@@ -173,21 +176,35 @@
             </thead>
             <tbody>
                 <?php foreach($students as $student): ?>
-                <tr>
-                    <td><?=$cnt++ ?></td>
-                    <td><?=$student['first_name'] ?></td>
-                    <td><?=$student['last_name'] ?></td>
-                    <td><?=$student['age'] ?></td>
-                    <td><?=$student['class_name'] ?></td>
-                    <td><?=$student['phone'] ?></td>
-                    <td><?=$student['address'] ?></td>
-                    <td class="actions">
-                        <a href="show.php?id=<?= $student['id'] ?>" class="btn-view">Ko'rish</a>
-                        <a href="edit.php?id=<?= $student['id'] ?>" class="btn-edit">Tahrirlash</a>
-                        <a href="delete.php?id=<?= $student['id'] ?>" class="btn-delete"  onclick="return confirm('O\'chirasizmi?')">O'chirish</a>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
+<tr>
+    <td><?= $student['id'] ?></td>
+    <td><?= htmlspecialchars($student['first_name']) ?></td>
+    <td><?= htmlspecialchars($student['last_name']) ?></td>
+    <td><?= $student['age'] ?></td>
+    
+    <td>
+        <span class="badge" style="background: #eef2ff; color: #4f46e5; padding: 5px 10px; border-radius: 6px;">
+            <?= $student['class_name'] ? htmlspecialchars($student['class_name']) : "Sinf yo'q" ?>
+        </span>
+    </td>
+    
+    <td><?= $student['phone'] ?></td>
+    <td><?= htmlspecialchars($student['address']) ?></td>
+  <td style="display: flex; gap: 10px; justify-content: flex-end; border: none;">
+    <a href="show.php?id=<?= $student['id'] ?>" title="Ko'rish" style="color: #4f46e5; background: #eef2ff; padding: 6px; border-radius: 8px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+        <i class="fa-solid fa-eye"></i>
+    </a>
+    <a href="edit.php?id=<?= $student['id'] ?>" title="Tahrirlash" style="color: #f59e0b; background: #fffbeb; padding: 6px; border-radius: 8px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; text-decoration: none;">
+        <i class="fa-solid fa-pen-to-square"></i>
+    </a>
+    <a href="delete.php?id=<?= $student['id'] ?>" title="O'chirish" style="color: #ef4444; background: #fef2f2; padding: 6px; border-radius: 8px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; text-decoration: none;" onclick="return confirm('Haqiqatan ham o\'chirmoqchimisiz?')">
+        <i class="fa-solid fa-trash"></i>
+    </a>
+</td>
+    </div>
+</td>
+</tr>
+<?php endforeach; ?>
             </tbody>
         </table>
     </div>
